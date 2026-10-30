@@ -1,0 +1,43 @@
+import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/auth";
+import { isAdmin } from "@/lib/permissions";
+import { getDb } from "@/lib/db";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+export async function GET() {
+  const session = await auth();
+  const userId = Number(session?.user?.id);
+
+  if (!session?.user?.id || !isAdmin(userId)) {
+    return NextResponse.json(
+      { ok: false, error: "Unauthorized" },
+      { status: 403 }
+    );
+  }
+
+  const db = getDb();
+
+  const users = db.prepare(`
+    SELECT 
+      u.id,
+      u.email,
+      u.name,
+      u.image,
+      u.created_at,
+      u.updated_at,
+      r.id as role_id,
+      r.name as role_name,
+      r.description as role_description
+    FROM users u
+    JOIN roles r ON u.role_id = r.id
+    ORDER BY u.created_at DESC
+  `).all();
+
+  const roles = db.prepare(`
+    SELECT id, name, description FROM roles ORDER BY name
+  `).all();
+
+  return NextResponse.json({ ok: true, users, roles });
+}

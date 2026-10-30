@@ -1,0 +1,50 @@
+{
+  "name": "algoedge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev --turbo",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "analyze": "ANALYZE=true next build",
+    "migrate": "node scripts/run-migration.mjs",
+    "migrate:check": "sqlite3 db.sqlite \".tables\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@auth/core": "^0.41.3",
+    "@auth/drizzle-adapter": "^1.11.3",
+    "@phosphor-icons/react": "^2.1.10",
+    "@tailwindcss/postcss": "^4.3.3",
+    "better-sqlite3": "^13.0.2",
+    "date-fns": "^4.4.0",
+    "drizzle-orm": "^0.45.2",
+    "lightweight-charts": "^5.2.1",
+    "lucide-react": "^1.31.0",
+    "next": "^16.3.0",
+    "next-auth": "^5.0.0-beta.32",
+    "nodemailer": "^8.0.11",
+    "ogl": "^1.0.11",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-hot-toast": "^2.6.0",
+    "resend": "^6.18.1"
+  },
+  "devDependencies": {
+    "@types/node": "26.1.2",
+    "@types/nodemailer": "^8.0.1",
+    "@types/react": "19.2.17",
+    "autoprefixer": "^10.5.4",
+    "drizzle-kit": "^0.31.10",
+    "postcss": "^8.5.25",
+    "tailwindcss": "^4.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "6.0.3"
+  }
+}
